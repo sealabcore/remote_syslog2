@@ -1,4 +1,4 @@
-node['deploy'].each do |application, deploy|
+# node['deploy'].each do |application, deploy|
 
   src_filename = node['remote_syslog2']['filename']
   src_filepath = "#{Chef::Config['file_cache_path']}/#{src_filename}"
@@ -17,9 +17,9 @@ node['deploy'].each do |application, deploy|
     code <<-EOH
       mkdir -p #{extract_path}
       tar xzf #{src_filename} -C #{extract_path}
-      mv #{extract_path}/remote_syslog #{node['remote_syslog2']['install_dir']}
+      mv #{extract_path}/remote_syslog/remote_syslog #{node['remote_syslog2']['install_dir']}
       EOH
     not_if { ::File.exists?(extract_path) }
   end
 
-end
+# end
