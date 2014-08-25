@@ -1,0 +1,12 @@
+<%=
+hash = {
+    'files' => node[:papertrail][:logs].map{|a| a}, # Map out of ruby/array:Chef::Node::ImmutableArray
+    'destination' => {
+      'host' => node[:papertrail][:host],
+      'port' => node[:papertrail][:port],
+      'protocol' => 'tls'
+    },
+    'exclude_patterns' => node[:papertrail][:exclude_patterns].map{|a| a} # Map out of ruby/array:Chef::Node::ImmutableArray
+}
+hash.to_yaml
+%>

@@ -25,3 +25,11 @@ file "#{node['remote_syslog2']['install_dir']}/remote_syslog" do
   mode "0755"
   action :touch
 end
+
+template "/etc/log_files.yml" do
+  action :create
+  owner 'root'
+  group 'root'
+  mode  '0644'
+  source 'logs.yml.erb'
+end
