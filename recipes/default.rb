@@ -26,15 +26,6 @@ file "#{node['remote_syslog2']['install_dir']}/remote_syslog" do
   action :touch
 end
 
-node[:deploy].each do |application, deploy|
-  # Allow deploy user to start and stop remote_syslog?
-  template "/etc/sudoers.d/#{deploy[:user]}" do
-    mode 0440
-    source "sudoer.erb"
-    variables :user => deploy[:user]
-  end
-end
-
 template "/etc/log_files.yml" do
   action :create
   owner 'root'
@@ -49,6 +40,15 @@ cookbook_file '/etc/init.d/remote_syslog' do
   group 'root'
   mode '0755'
   source 'remote_syslog.init'
+end
+
+node[:deploy].each do |application, deploy|
+  # Allow deploy user to start and stop remote_syslog?
+  template "/etc/sudoers.d/#{deploy[:user]}" do
+    mode 0440
+    source "sudoer.erb"
+    variables :user => deploy[:user]
+  end
 end
 
 service 'remote_syslog' do
