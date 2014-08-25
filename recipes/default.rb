@@ -52,6 +52,7 @@ node[:deploy].each do |application, deploy|
 end
 
 service 'remote_syslog' do
+  provider Chef::Provider::Service::Init::Debian
   action [:stop]
   supports :status => true, :restart => true, :reload => true
   init_command "/etc/init.d/remote_syslog"
