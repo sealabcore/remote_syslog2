@@ -35,7 +35,6 @@ template "/etc/log_files.yml" do
 end
 
 file "/etc/remote_syslog.log" do
-  action :create
   owner 'root'
   group 'root'
   mode  '0644'
