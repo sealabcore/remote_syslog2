@@ -42,17 +42,16 @@ cookbook_file '/etc/init.d/remote_syslog' do
   source 'remote_syslog.init'
 end
 
-node[:deploy].each do |application, deploy|
-  # Allow deploy user to start and stop remote_syslog?
-  template "/etc/sudoers.d/#{deploy[:user]}" do
-    mode 0440
-    source "sudoer.erb"
-    variables :user => deploy[:user]
-  end
-end
+# node[:deploy].each do |application, deploy|
+#   # Allow deploy user to start and stop remote_syslog?
+#   template "/etc/sudoers.d/#{deploy[:user]}" do
+#     mode 0440
+#     source "sudoer.erb"
+#     variables :user => deploy[:user]
+#   end
+# end
 
 service 'remote_syslog' do
-  provider Chef::Provider::Service::Init::Debian
   action [:stop]
   supports :status => true, :restart => true, :reload => true
   init_command "/etc/init.d/remote_syslog"
