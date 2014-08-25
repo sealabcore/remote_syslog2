@@ -34,6 +34,14 @@ template "/etc/log_files.yml" do
   source 'logs.yml.erb'
 end
 
+file "/etc/remote_syslog.log" do
+  action :create
+  owner 'root'
+  group 'root'
+  mode  '0644'
+  action :touch
+end
+
 cookbook_file '/etc/init.d/remote_syslog' do
   action :create
   owner 'root'
@@ -41,15 +49,6 @@ cookbook_file '/etc/init.d/remote_syslog' do
   mode '0755'
   source 'remote_syslog.init'
 end
-
-# node[:deploy].each do |application, deploy|
-#   # Allow deploy user to start and stop remote_syslog?
-#   template "/etc/sudoers.d/#{deploy[:user]}" do
-#     mode 0440
-#     source "sudoer.erb"
-#     variables :user => deploy[:user]
-#   end
-# end
 
 service 'remote_syslog' do
   action [:stop]
