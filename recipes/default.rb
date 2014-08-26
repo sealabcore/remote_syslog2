@@ -48,3 +48,7 @@ cookbook_file '/etc/init.d/remote_syslog' do
 
   notifies :reload, "service[remote_syslog]", :immediately
 end
+
+service "remote_syslog" do
+  action [:enable, :reload]
+end
