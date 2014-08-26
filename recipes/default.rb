@@ -28,24 +28,27 @@ end
 
 template "/etc/log_files.yml" do
   action :create
-  owner 'root'
-  group 'root'
+  owner 'deploy'
   mode  '0644'
   source 'logs.yml.erb'
 end
 
 file "/etc/remote_syslog.log" do
-  owner 'root'
-  group 'root'
+  owner 'deploy'
+  mode  '0644'
+  action :touch
+end
+
+file "/var/run/remote_syslog.pid" do
+  owner 'deploy'
   mode  '0644'
   action :touch
 end
 
 cookbook_file '/etc/init.d/remote_syslog' do
   action :create
-  owner 'root'
-  group 'root'
-  mode '0755'
+  owner 'deploy'
+  mode '0777'
   source 'remote_syslog.init'
 end
 
