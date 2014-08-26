@@ -1,5 +1,5 @@
 service "remote_syslog" do
-  provider Chef::Provider::Service::Init
+  provider Chef::Provider::Service::Redhat
   action :nothing
   supports :status => true, :start => true, :stop => true, :restart => true
 end
@@ -51,5 +51,5 @@ cookbook_file '/etc/init.d/remote_syslog' do
 end
 
 service "remote_syslog" do
-  action [:enable, :reload]
+  action [:reload]
 end
