@@ -1,3 +1,8 @@
+service "remote_syslog" do
+  action :nothing
+  supports :status => true, :start => true, :stop => true, :restart => true
+end
+
 src_filename = node['remote_syslog2']['filename']
 src_filepath = "#{Chef::Config['file_cache_path']}/#{src_filename}"
 extract_path = "#{Chef::Config['file_cache_path']}/remote_syslog2"
@@ -40,10 +45,6 @@ cookbook_file '/etc/init.d/remote_syslog' do
   group 'root'
   mode '0755'
   source 'remote_syslog.init'
-end
 
-service 'remote_syslog' do
-  init_command "/etc/init.d/remote_syslog"
-  start_command "start"
-  action [:enable, :start]
+  notifies :reload, "service[remote_syslog]", :immediately
 end
