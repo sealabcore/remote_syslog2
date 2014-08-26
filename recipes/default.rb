@@ -1,4 +1,6 @@
 service "remote_syslog" do
+  init_command "/etc/init.d/remote_syslog"
+  reload_command "reload"
   action :nothing
   supports :status => true, :start => true, :stop => true, :restart => true
 end
@@ -36,14 +38,14 @@ node[:deploy].each do |application, deploy|
   file "/tmp/remote_syslog.log" do
     owner deploy[:user]
     group deploy[:group]
-    mode "0777"
+    mode "0755"
     action :touch
   end
 
   file "/tmp/remote_syslog.pid" do
     owner deploy[:user]
     group deploy[:group]
-    mode "0777"
+    mode "0755"
     action :touch
   end
 
