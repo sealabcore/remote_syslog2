@@ -5,12 +5,13 @@ service "remote_syslog" do
   supports :status => true, :start => true, :stop => true, :restart => true
 end
 
+service 'monit' do
+  action :nothing
+end
+
 src_filename = node['remote_syslog2']['filename']
 src_filepath = "#{Chef::Config['file_cache_path']}/#{src_filename}"
 extract_path = "#{Chef::Config['file_cache_path']}/remote_syslog2"
-
-include_recipe "nginx"
-include_recipe "unicorn"
 
 node[:deploy].each do |application, deploy|
 
@@ -69,6 +70,14 @@ node[:deploy].each do |application, deploy|
 
     notifies :reload, "service[remote_syslog]", :immediately
   end
+end
+
+template "#{node[:monit][:conf_dir]}/remote_syslog.monitrc" do
+  source 'remote_syslog.monitrc.erb'
+  owner 'root'
+  group 'root'
+  mode 0644
+  notifies :restart, "service[monit]"
 end
 
 service "remote_syslog" do
