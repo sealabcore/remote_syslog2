@@ -4,7 +4,7 @@ extract_path = "#{Chef::Config['file_cache_path']}/remote_syslog2"
 
 remote_file src_filepath do
   source "https://github.com/papertrail/remote_syslog2/releases/download/#{node['remote_syslog2']['version']}/#{node['remote_syslog2']['filename']}"
-  owner 'root'
+  owner 'deploy'
   group 'root'
   mode "0644"
 end
@@ -20,7 +20,7 @@ bash 'extract and copy executable' do
 end
 
 file "#{node['remote_syslog2']['install_dir']}/remote_syslog" do
-  owner "root"
+  owner "deploy"
   group "root"
   mode "0755"
   action :touch
