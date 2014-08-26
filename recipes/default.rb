@@ -1,4 +1,5 @@
 service "remote_syslog" do
+  provider Chef::Provider::Service::Init
   action :nothing
   supports :status => true, :start => true, :stop => true, :restart => true
 end
