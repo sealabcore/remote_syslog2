@@ -32,6 +32,20 @@ file "#{node['remote_syslog2']['install_dir']}/remote_syslog" do
   action :touch
 end
 
+file "/tmp/remote_syslog.log" do
+  owner "root"
+  group "root"
+  mode "0777"
+  action :touch
+end
+
+file "/tmp/remote_syslog.pid" do
+  owner "root"
+  group "root"
+  mode "0777"
+  action :touch
+end
+
 template "/etc/log_files.yml" do
   action :create
   owner 'root'
