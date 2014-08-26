@@ -39,7 +39,7 @@ template "/etc/log_files.yml" do
   source 'logs.yml.erb'
 end
 
-cookbook_file '/etc/init.d/remote_syslog' do
+template '/etc/init.d/remote_syslog' do
   action :create
   owner 'root'
   group 'root'
