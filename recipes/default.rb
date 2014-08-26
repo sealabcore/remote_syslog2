@@ -43,5 +43,7 @@ cookbook_file '/etc/init.d/remote_syslog' do
 end
 
 service 'remote_syslog' do
+  init_command "/etc/init.d/remote_syslog"
+  start_command "start"
   action [:enable, :start]
 end
