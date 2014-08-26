@@ -9,6 +9,9 @@ src_filename = node['remote_syslog2']['filename']
 src_filepath = "#{Chef::Config['file_cache_path']}/#{src_filename}"
 extract_path = "#{Chef::Config['file_cache_path']}/remote_syslog2"
 
+include_recipe "nginx"
+include_recipe "unicorn"
+
 node[:deploy].each do |application, deploy|
 
   remote_file src_filepath do
