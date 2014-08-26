@@ -21,9 +21,9 @@
 
 prog="remote_syslog"
 config="/etc/log_files.yml"
-pid_dir="/var/run"
+pid_dir="/tmp"
 
-EXTRAOPTIONS="--debug-log-cfg=/etc/remote_syslog.log"
+EXTRAOPTIONS="--debug-log-cfg=/tmp/remote_syslog.log"
 
 pid_file="$pid_dir/$prog.pid"
 

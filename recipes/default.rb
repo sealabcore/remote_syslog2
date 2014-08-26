@@ -6,7 +6,7 @@ remote_file src_filepath do
   source "https://github.com/papertrail/remote_syslog2/releases/download/#{node['remote_syslog2']['version']}/#{node['remote_syslog2']['filename']}"
   owner 'root'
   group 'root'
-  mode "0777"
+  mode "0644"
 end
 
 bash 'extract and copy executable' do
@@ -22,7 +22,7 @@ end
 file "#{node['remote_syslog2']['install_dir']}/remote_syslog" do
   owner "root"
   group "root"
-  mode "0777"
+  mode "0755"
   action :touch
 end
 
@@ -30,35 +30,18 @@ template "/etc/log_files.yml" do
   action :create
   owner 'root'
   group 'root'
-  mode  '0777'
+  mode  '0644'
   source 'logs.yml.erb'
-end
-
-file "/etc/remote_syslog.log" do
-  owner 'root'
-  group 'root'
-  mode  '0777'
-  action :touch
-end
-
-file "/var/run/remote_syslog.pid" do
-  owner 'root'
-  group 'root'
-  mode  '0777'
-  action :touch
 end
 
 cookbook_file '/etc/init.d/remote_syslog' do
   action :create
   owner 'root'
   group 'root'
-  mode '0777'
+  mode '0755'
   source 'remote_syslog.init'
 end
 
 service 'remote_syslog' do
-  action [:stop]
-  supports :status => true, :restart => true, :reload => true
-  init_command "/etc/init.d/remote_syslog"
   action [:enable, :start]
 end
