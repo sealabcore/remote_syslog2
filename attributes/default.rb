@@ -7,6 +7,6 @@ default[:papertrail][:port] = '514'
 default[:papertrail][:logs] = []
 default[:papertrail][:exclude_patterns] = []
 
-default[:remote_syslog][:pid_file] = "/tmp/remote_syslog.pid"
+default[:remote_syslog][:pid_file] = "/etc/remote_syslog.pid"
 default[:remote_syslog][:start_command] = "/etc/init.d/remote_syslog start"
 default[:remote_syslog][:stop_command] = "/etc/init.d/remote_syslog stop"
