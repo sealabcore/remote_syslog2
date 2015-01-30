@@ -46,7 +46,7 @@ node[:deploy].each do |application, deploy|
     action :touch
   end
 
-  file "/tmp/remote_syslog.pid" do
+  file "/etc/remote_syslog.pid" do
     owner deploy[:user]
     group deploy[:group]
     mode "0755"
