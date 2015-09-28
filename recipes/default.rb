@@ -16,7 +16,7 @@ extract_path = "#{Chef::Config['file_cache_path']}/remote_syslog2"
 node[:deploy].each do |application, deploy|
 
   remote_file src_filepath do
-    source "https://github.com/papertrail/remote_syslog2/releases/download/#{node['remote_syslog2']['version']}/#{node['remote_syslog2']['filename']}"
+    source "https://remote-syslogger-dl.s3.amazonaws.com/remote_syslog_linux_amd64.tar.gz"
     owner deploy[:user]
     group deploy[:group]
     mode "0644"
