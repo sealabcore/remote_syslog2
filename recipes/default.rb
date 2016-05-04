@@ -28,8 +28,7 @@ node[:deploy].each do |application, deploy|
       mkdir -p #{extract_path}
       tar xzf #{src_filename} -C #{extract_path}
       mv #{extract_path}/remote_syslog/remote_syslog #{node['remote_syslog2']['install_dir']}
-      EOH
-    not_if { ::File.exists?(extract_path) }
+    EOH
   end
 
   file "#{node['remote_syslog2']['install_dir']}/remote_syslog" do
